@@ -3,29 +3,23 @@ const app = express()
 const path=require('path')
 require('dotenv').config()
 
+   //built in middlewares
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
+//setting the templete engine
+app.set("view engine","ejs")
+app.set("views",path.join(__dirname,'templetes'))
+
+//routes
 app.get('/',(req,res)=>{
+const name=req.query.name || "david rai"
 
-  // console.log(__filename)
-// console.log(__dirname)
-  
-// console.log(path.basename(__filename))
-// console.log(path.basename(__dirname))
-
-// console.log(path.parse(__filename))
-// console.log(path.parse(__dirname))
-
-// console.log(path.isAbsolute(__dirname))
-
-// console.log(path.join("folder",'data.json'))
-// console.log(path.resolve('demo.txt', 'file.txt'))
-
-res.json("hello there")
+  res.render('index',{name,navCom:["home","about","price","categories"]})
+// res.json("hello there")
 })
 
 const port=process.env.PORT
-app.listen(port, () => {  
+app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
